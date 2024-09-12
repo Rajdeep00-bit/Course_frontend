@@ -1,22 +1,24 @@
-# Base image
-FROM node:14-alpine
+# Use an official node runtime as a parent image
+FROM node:20-alpine
 
-# Set working directory
+# Set the working directory in the container
 WORKDIR /app
 
 # Install dependencies
-COPY package*.json ./
+COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy source code
-COPY . .
+# Copy the current directory contents into the container at /app
+COPY . /app
 
 # Build the app
 RUN npm run build
 
-# Serve the app using a simple HTTP server
+# Install a simple server to serve the built app
 RUN npm install -g serve
-CMD ["serve", "-s", "build"]
 
-# Expose the app on port 3000
+# Expose the port the app runs on
 EXPOSE 3000
+
+# Start the server to serve the app
+CMD ["serve", "-s", "build"]

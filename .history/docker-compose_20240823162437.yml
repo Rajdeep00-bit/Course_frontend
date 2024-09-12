@@ -1,0 +1,10 @@
+version: '3'
+services:
+  frontend:
+    image: your-dockerhub-username/my-react-app
+    ports:
+      - "3000:3000"
+  backend:
+    image: your-dockerhub-username/my-backend-app
+    ports:
+      - "8000:8000"
